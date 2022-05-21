@@ -32,7 +32,7 @@ using internal_queue = std::priority_queue<huffman_node *, std::vector<huffman_n
  * A huffman encoded 8 bit array of data with a fixed bit length
  */
 struct huffman_encoding {
-  std::unique_ptr<uint8_t> data;
+  std::unique_ptr<uint8_t[]> data;
   size_t bit_length;
 };
 

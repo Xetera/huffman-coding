@@ -2,7 +2,6 @@
 #include <vector>
 #include <optional>
 #include <string>
-#include <cstdint>
 #include "huffman.hpp"
 
 huffman::huffman(const std::string_view &input) :
@@ -97,7 +96,7 @@ inline void clear_bit(uint8_t *data, size_t offset) {
 std::unique_ptr<huffman_encoding> to_padded_bits(const std::vector<bool> &input) {
   const auto bit_size = input.size();
   const size_t byte_size = ceil((float) bit_size / 8);
-  auto output = std::make_unique<uint8_t>(byte_size);
+  auto output = std::make_unique<uint8_t[]>(byte_size);
 
   for (size_t i = 0; i < bit_size; i++) {
     auto set = input[i];
@@ -168,7 +167,7 @@ std::unique_ptr<huffman_encoding> huffman::encode(const std::string_view &input)
   }
 
   const size_t byte_size = ceil((float) bit_size / 8);
-  auto bits = std::make_unique<uint8_t>(byte_size);
+  auto bits = std::make_unique<uint8_t[]>(byte_size);
 
   const size_t string_size = input.length();
   size_t offset = 0;
